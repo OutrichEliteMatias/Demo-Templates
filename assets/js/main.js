@@ -22,6 +22,11 @@ function adjustTopOffset() {
 	jQuery('.mobile-menu').css({
 		'top': headerHeight,
 	});
+
+  jQuery('main').css({
+		'margin-top': headerHeight,
+	});
+
 }
 
 function mobileMenuEnable() {
