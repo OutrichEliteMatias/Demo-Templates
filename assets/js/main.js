@@ -17,6 +17,7 @@ jQuery(window).on( "load", function() {
   datepickerToggle();
   formBasicValidation();
   dataTableMethods();
+  chartMethods();
 });
 
 // RESIZE
@@ -307,4 +308,65 @@ function dataTableMethods() {
     "date"         : "2021/08/24",
     "details"      : "Lorem ipsum...",
   } ).draw();
+}
+
+function chartMethods() {
+  // Line Chart Start
+  const line_labels = [
+    'Column 1',
+    'Column 2',
+    'Column 3',
+    'Column 4',
+    'Column 5',
+    'Column 6',
+  ];
+  const line_data = {
+    labels: line_labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        backgroundColor: '#336799',
+        borderColor: '#336799',
+        data: [0, 10, 5, 2, 20, 30],
+      },
+      {
+        label: 'Dataset 2',
+        backgroundColor: '#80c487',
+        borderColor: '#80c487',
+        data: [20, 15, 25, 20, 10, 12],
+      },
+    ]
+  };
+  const line_config = {
+    type: 'line',
+    data: line_data,
+    options: {}
+  };
+  var lineChart = new Chart(jQuery('canvas#lineChart'), line_config);
+  // Line Chart End
+
+  // Pie Chart Start
+  const pie_data = {
+    labels: [
+      'Dataset 1',
+      'Dataset 2',
+      'Dataset 3'
+    ],
+    datasets: [{
+      label: 'Dataset',
+      data: [300, 50, 100],
+      backgroundColor: [
+        '#336799',
+        '#80c487',
+        '#ff8081'
+      ],
+      hoverOffset: 4
+    }]
+  };
+  const pie_config = {
+    type: 'pie',
+    data: pie_data,
+  };
+  var pieChart = new Chart(jQuery('canvas#pieChart'), pie_config);
+  // Pie Chart End
 }
