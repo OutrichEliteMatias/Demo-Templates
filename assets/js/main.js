@@ -1,3 +1,6 @@
+// GLOBALS
+var editor; // use a global for the submit and return data rendering in the examples
+
 // READY
 jQuery(document).on( "ready", function() {
   adjustTopOffset();
@@ -13,6 +16,7 @@ jQuery(window).on( "load", function() {
   passwordMatch();
   datepickerToggle();
   formBasicValidation();
+  dataTableMethods();
 });
 
 // RESIZE
@@ -193,93 +197,114 @@ function formBasicValidation() {
   }, 'Cannot be earlier than start date.');
 }
 
-var editor; // use a global for the submit and return data rendering in the examples
- 
-$(document).ready(function() {
+function dataTableMethods() {
+  var table = jQuery('table.data-table');
 
-    editor = new $.fn.dataTable.Editor( {
-        "ajax": "../php/staff.php",
-        "table": "#example",
-        "fields": [ {
-                "label": "First name:",
-                "name": "first_name"
-            }, {
-                "label": "Last name:",
-                "name": "last_name"
-            }, {
-                "label": "Position:",
-                "name": "position"
-            }, {
-                "label": "Office:",
-                "name": "office"
-            }, {
-                "label": "Extension:",
-                "name": "extn"
-            }, {
-                "label": "Start date:",
-                "name": "start_date",
-                "type": "datetime"
-            }, {
-                "label": "Salary:",
-                "name": "salary"
-            }
-        ]
-    } );
- 
-    // New record
-    $('a.editor-create').on('click', function (e) {
-        e.preventDefault();
- 
-        editor.create( {
-            title: 'Create new record',
-            buttons: 'Add'
-        } );
-    } );
- 
-    // Edit record
-    $('#example').on('click', 'td.editor-edit', function (e) {
-        e.preventDefault();
- 
-        editor.edit( $(this).closest('tr'), {
-            title: 'Edit record',
-            buttons: 'Update'
-        } );
-    } );
- 
-    // Delete a record
-    $('#example').on('click', 'td.editor-delete', function (e) {
-        e.preventDefault();
- 
-        editor.remove( $(this).closest('tr'), {
-            title: 'Delete record',
-            message: 'Are you sure you wish to remove this record?',
-            buttons: 'Delete'
-        } );
-    } );
- 
-    $('#example').DataTable( {
-        columns: [
-            { data: null, render: function ( data, type, row ) {
-                // Combine the first and last names into a single table field
-                return data.first_name+' '+data.last_name;
-            } },
-            { data: "position" },
-            { data: "office" },
-            { data: "extn" },
-            { data: "start_date" },
-            { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) },
-            {
-                data: null, 
-                className: "dt-center editor-edit",
-                defaultContent: '<i class="fa fa-pencil"/>',
-                orderable: false
-            },
-            {
-                data: null, 
-                className: "dt-center editor-delete",
-                defaultContent: '<i class="fa fa-trash"/>',
-                orderable: false
-            }
-        ]
-    } );
-} );
+  editor = new $.fn.dataTable.Editor( {
+    table: table,
+    fields: [
+      {
+        label: "Name:",
+        name: "name"
+      },
+      {
+        label: "Product:",
+        name: "product"
+      },
+      {
+        label: "Serial Number:",
+        name: "serial_number"
+      },
+      {
+        label: "Date:",
+        name: "date",
+        type: "datetime"
+      },
+      {
+        label: "Details:",
+        name: "details"
+      }
+    ]
+  } );
+  
+  // Edit record
+  table.on('click', 'td.editor-edit', function (e) {
+      e.preventDefault();
+  
+      editor.edit( $(this).closest('tr'), {
+          title: 'Edit record',
+          buttons: 'Update'
+      } );
+  } );
+  
+  // Delete a record
+  table.on('click', 'td.editor-delete', function (e) {
+      e.preventDefault();
+  
+      editor.remove( $(this).closest('tr'), {
+          title: 'Delete record',
+          message: 'Are you sure you wish to remove this record?',
+          buttons: 'Delete'
+      } );
+  } );
+  
+  table.DataTable( {
+      dom: "Bfrtip",
+      columns: [
+          { data: "name" },
+          { data: "product" },
+          { data: "serial_number" },
+          { data: "date" },
+          { data: "details" },
+          {
+            data          : null,
+            className     : "dt-center editor-edit",
+            defaultContent: '<i class="fal fa-pen"></i>',
+            orderable     : false
+          },
+          {
+            data          : null,
+            className     : "dt-center editor-delete",
+            defaultContent: '<i class="fal fa-trash"></i>',
+            orderable     : false
+          }
+      ],
+      select: true,
+      buttons: [
+          { 
+            extend   : "create",
+            text     : "Add New",
+            className: 'btn btn-grey-lighter',
+            editor   : editor
+          },
+          // { extend: "edit",   editor: editor },
+          // { extend: "remove", editor: editor }
+      ]
+  } );
+
+  // INITIAL VALUES
+  table.DataTable().row.add( {
+    "DT_RowId"     : "row_initial_1",
+    "name"         : "John Doe",
+    "product"      : "Product 1",
+    "serial_number": "ABCD-1234-EFGH-5678",
+    "date"         : "2021/08/24",
+    "details"      : "Lorem ipsum...",
+  } ).draw();
+  table.DataTable().row.add( {
+    "DT_RowId"     : "row_initial_2",
+    "name"         : "John Doe",
+    "product"      : "Product 2",
+    "serial_number": "ABCD-1234-EFGH-5678",
+    "date"         : "2021/08/24",
+    "details"      : "Lorem ipsum...",
+  } ).draw();
+  table.DataTable().row.add( {
+    "DT_RowId"     : "row_initial_3",
+    "name"         : "John Doe",
+    "product"      : "Product 3",
+    "serial_number": "ABCD-1234-EFGH-5678",
+    "date"         : "2021/08/24",
+    "details"      : "Lorem ipsum...",
+  } ).draw();
+}
