@@ -10,14 +10,22 @@ jQuery(document).on( "ready", function() {
 jQuery(window).on( "load", function() {
   // mobileMenuEnable();
   adjustTopOffset();
+  
   mobileMenuToggle();
   mobileMenuAccordion();
+  
   passwordToggle();
   passwordMatch();
+  
   datepickerToggle();
+  
   formBasicValidation();
+  
   dataTableMethods();
+  
   chartMethods();
+
+  toastrDefaults();
 });
 
 // RESIZE
@@ -133,22 +141,26 @@ function formBasicValidation() {
         },
         confirm_password: {
           password: true,
-          equalTo  : '#new_password'
+          equalTo : '#new_password'
         },
 
         start_date: {
           date: true
         },
         end_date: {
-          date: true,
+          date       : true,
           greaterThan: '#start_date'
         }
       },
       messages: {
           
       },
+      invalidHandler: function( form ) {
+        toastr["error"]("This is an error message.")
+
+      },
       submitHandler: function( form ) {
-          
+        toastr["success"]("This is a success message.")
       }
     });
   });
@@ -418,4 +430,28 @@ function chartMethods() {
   };
   var barChart = new Chart(jQuery('canvas#barChart'), bar_config);
   // Bar Chart End
+}
+
+function toastrDefaults() {
+  toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+}
+
+function toastrSuccess() {
+
 }
