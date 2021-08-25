@@ -167,31 +167,31 @@ function formBasicValidation() {
 
   // Alphabet Only
   jQuery.validator.addMethod("alphabet", function( value, element ) {
-		var result = this.optional(element) || /[a-z]/.test(value) || /[A-Z]/.test(value);
+		var result = (this.optional(element) || /[a-z]/.test(value) || /[A-Z]/.test(value)) && (!/\d/.test(value) && !/[!@#\$%\^\&*\)\(+=._-]/.test(value));
 		return result;
 	}, "Field must only include letters.");
 
   // Numbers Only
   jQuery.validator.addMethod("numbers", function( value, element ) {
-		var result = this.optional(element) || /\d/.test(value);
+		var result = (this.optional(element) || /\d/.test(value)) && (!/[a-z]/.test(value) && !/[A-Z]/.test(value) && !/[!@#\$%\^\&*\)\(+=._-]/.test(value));
 		return result;
 	}, "Field must only include numbers.");
 
   // Alphabet and Numbers Only
   jQuery.validator.addMethod("alphabet_numbers", function( value, element ) {
-		var result = this.optional(element) || /\d/.test(value) && (/[a-z]/.test(value) || /[A-Z]/.test(value));
+		var result = (this.optional(element) || /\d/.test(value) && (/[a-z]/.test(value) || /[A-Z]/.test(value))) && !/[!@#\$%\^\&*\)\(+=._-]/.test(value);
 		return result;
 	}, "Field must include letters and numbers.");
 
   // Alphabet and Special Characters Only
   jQuery.validator.addMethod("alphabet_special_chars", function( value, element ) {
-		var result = this.optional(element) || (/[a-z]/.test(value) || /[A-Z]/.test(value)) && /[!@#\$%\^\&*\)\(+=._-]/.test(value);
+		var result = (this.optional(element) || (/[a-z]/.test(value) || /[A-Z]/.test(value)) && /[!@#\$%\^\&*\)\(+=._-]/.test(value)) && !/\d/.test(value);
 		return result;
 	}, "Field must include letters and special characters.");
 
   // Numbers and Special Characters Only
   jQuery.validator.addMethod("numbers_special_chars", function( value, element ) {
-		var result = this.optional(element) || /\d/.test(value) && /[!@#\$%\^\&*\)\(+=._-]/.test(value);
+		var result = (this.optional(element) || /\d/.test(value) && /[!@#\$%\^\&*\)\(+=._-]/.test(value)) && (!/[a-z]/.test(value) && !/[A-Z]/.test(value));
 		return result;
 	}, "Field must include numbers and special characters.");
 
@@ -450,8 +450,4 @@ function toastrDefaults() {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
   }
-}
-
-function toastrSuccess() {
-
 }
