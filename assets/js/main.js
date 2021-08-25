@@ -26,6 +26,8 @@ jQuery(window).on( "load", function() {
   chartMethods();
 
   toastrDefaults();
+
+  customInputDropdown();
 });
 
 // RESIZE
@@ -301,7 +303,7 @@ function dataTableMethods() {
     "name"         : "John Doe",
     "product"      : "Product 1",
     "serial_number": "ABCD-1234-EFGH-5678",
-    "date"         : "2021/08/24",
+    "date"         : "2021-08-24",
     "details"      : "Lorem ipsum...",
   } ).draw();
   table.DataTable().row.add( {
@@ -309,7 +311,7 @@ function dataTableMethods() {
     "name"         : "John Doe",
     "product"      : "Product 2",
     "serial_number": "ABCD-1234-EFGH-5678",
-    "date"         : "2021/08/24",
+    "date"         : "2021-08-24",
     "details"      : "Lorem ipsum...",
   } ).draw();
   table.DataTable().row.add( {
@@ -317,7 +319,7 @@ function dataTableMethods() {
     "name"         : "John Doe",
     "product"      : "Product 3",
     "serial_number": "ABCD-1234-EFGH-5678",
-    "date"         : "2021/08/24",
+    "date"         : "2021-08-24",
     "details"      : "Lorem ipsum...",
   } ).draw();
 }
@@ -450,4 +452,14 @@ function toastrDefaults() {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
   }
+}
+
+function customInputDropdown() {
+  dselect(document.querySelector('#select_creatable'), {
+    search   : true,
+    creatable: true,
+    clearable: true,
+    maxHeight: '360px',
+    size     : '',
+  });
 }

@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/@jarstone/dselect/dist/css/dselect.css">
+
     <link rel="stylesheet" href="assets/css/vendor/datatables.min.css">
 
     <link rel="stylesheet" href="assets/css/vendor/hamburgers.css">
@@ -259,7 +261,21 @@
 
                 <div class="row">
                   <div class="col-12"><h4>Select Option Dropdown Field</h4></div>
-                  <div class="col-12 col-md-6 col-lg-4"></div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <div class="form-field">
+                      <label for="select_creatable">Custom Input Option in Select Dropdown</label>
+                      <div class="input-container">
+                        <select name="select_creatable" class="form-select" id="select_creatable">
+                          <option value="">Select Option</option>
+                          <option value="option-1">Option 1</option>
+                          <option value="option-2">Option 2</option>
+                          <option value="option-3">Option 3</option>
+                          <option value="option-4">Option 4</option>
+                          <option value="option-5">Option 5</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                   <div class="col-12 col-md-6 col-lg-4">
                     <div class="form-field">
                       <label for="select_multiple">Select Multiple Option</label>
@@ -276,9 +292,9 @@
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                     <div class="form-field">
-                      <label for="select_multiple">Select Options (With Limit)</label>
+                      <label for="select_multiple_w_limit">Select Options (With Limit)</label>
                       <div class="input-container">
-                        <select name="select_multiple" class="selectpicker" id="select_multiple" multiple data-max-options='2'>
+                        <select name="select_multiple_w_limit" class="selectpicker" id="select_multiple_w_limit" data-max-options="2" multiple>
                           <option value="option-1">Option 1</option>
                           <option value="option-2">Option 2</option>
                           <option value="option-3">Option 3</option>
@@ -491,6 +507,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  <script src="https://unpkg.com/@jarstone/dselect/dist/js/dselect.js"></script>
 
   <script src="assets/js/vendor/datatables.min.js"></script>
 
