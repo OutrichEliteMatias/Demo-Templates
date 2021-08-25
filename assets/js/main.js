@@ -293,7 +293,27 @@ function dataTableMethods() {
             editor   : editor
           },
           // { extend: "edit",   editor: editor },
-          // { extend: "remove", editor: editor }
+          // { extend: "remove", editor: editor },
+          { 
+            extend   : "csv",
+            text     : "<i class='fas fa-file-csv'></i>",
+            className: 'btn btn-grey-lighter',
+          },
+          {
+            extend   : "excel",
+            text     : "<i class='fas fa-file-excel'></i>",
+            className: 'btn btn-grey-lighter',
+          },
+          {
+            extend   : "pdf",
+            text     : "<i class='fas fa-file-pdf'></i>",
+            className: 'btn btn-grey-lighter',
+          },
+          {
+            extend   : "print",
+            text     : "<i class='fas fa-print'></i>",
+            className: 'btn btn-grey-lighter',
+          },
       ]
   } );
 
