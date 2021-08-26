@@ -28,6 +28,7 @@ jQuery(window).on( "load", function() {
   toastrDefaults();
 
   customInputDropdown();
+  customDatepicker();
 });
 
 // RESIZE
@@ -492,5 +493,85 @@ function customInputDropdown() {
     clearable: true,
     maxHeight: '360px',
     size     : '',
+  });
+}
+
+function customDatepicker() {
+  var datePicker = jQuery('.form-field.custom-datepicker');
+  var date       = datePicker.children('.input-container.date');
+  var month      = datePicker.children('.input-container.month');
+  var year       = datePicker.children('.input-container.year');
+
+  var monthSelect = month.find('select');
+  var yearSelect = year.find('select');
+
+  var startYr = 1970;
+  var endYr   = 2040;
+
+  ily = function(y) {return !(y & 3 || !(y % 25) && y & 15);};
+
+  var monthNames = [
+    { month: "January", days: 31},
+    { month: "February", days: 28},
+    { month: "March", days: 31},
+    { month: "April", days: 30},
+    { month: "May", days: 31},
+    { month: "June", days: 30},
+    { month: "July", days: 31},
+    { month: "August", days: 31},
+    { month: "September", days: 30},
+    { month: "October", days: 31},
+    { month: "November", days: 30},
+    { month: "December", days: 31},
+  ];
+
+  // Render Year Options
+  yearSelect.empty().append(function() {
+    var output = '';
+    output += '<option value"">Select Year</option>';
+    for (let index = startYr; index <= endYr; index++) {
+      output += '<option value"'+ index +'">' + index + '</option>';      
+    }
+    return output;
+  });
+
+  // Render Month Options
+  monthSelect.empty().append(function() {
+    var output = '';
+    output += '<option value"">Select Month</option>';
+    for (let index = 0; index < monthNames.length; index++) {
+      output += '<option value"'+ monthNames[index]['month'] +'">' + monthNames[index]['month'] + '</option>';      
+    }
+    return output;
+  });
+
+  // Render Day On Month/Year Change
+  jQuery(document).on('change', '.custom-datepicker .year select, .custom-datepicker .month select', function() {
+    var currentMonth = month.find('select').val();
+    var currentYear  = year.find('select').val();
+
+    if (currentMonth != '' || currentMonth != 'Select Month') {
+      for (let i = 0; i < monthNames.length; i++) {
+        if (currentMonth == monthNames[i]['month']) {
+          date.find('select').empty().append(function() {
+            var output = '';
+            output += '<option value"">Select Date</option>';
+
+            if (currentYear != '' || currentYear != 'Select Year') {
+              if (ily(currentYear)) {
+                monthNames[1]['days'] = 29;
+              } else {
+                monthNames[1]['days'] = 28;
+              }
+            }
+
+            for (let index = 1; index <= monthNames[i]['days']; index++) {
+              output += '<option value"'+ index +'">' + index + '</option>';      
+            }
+            return output;
+          });
+        }
+      }
+    }
   });
 }
