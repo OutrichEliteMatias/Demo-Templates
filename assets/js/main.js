@@ -140,10 +140,10 @@ function formBasicValidation() {
           password: true
         },
         new_password: {
-          // password: true
+          password: true
         },
         confirm_password: {
-          // password: true,
+          password: true,
           equalTo : '#new_password'
         },
 
