@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://unpkg.com/@jarstone/dselect/dist/css/dselect.css">
 
     <link rel="stylesheet" href="assets/css/vendor/datatables.min.css">
+    <link rel="stylesheet" href="assets/css/vendor/jquery.passwordRequirements.css">
 
     <link rel="stylesheet" href="assets/css/vendor/hamburgers.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -244,7 +245,7 @@
                     <div class="form-field">
                       <label for="new_password">New Password</label>
                       <div class="input-container">
-                        <input type="password" name="new_password" id="new_password">
+                        <input type="password" name="new_password" id="new_password" class="pr-password">
                         <div class="toggle-password"></div>
                       </div>
                     </div>
@@ -337,6 +338,10 @@
                         <label for="radio_option_3">Option 3</label>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <h4>Select Date (Date changes according to month)</h4>
                   </div>
                 </div>
 
@@ -511,6 +516,7 @@
   <script src="https://unpkg.com/@jarstone/dselect/dist/js/dselect.js"></script>
 
   <script src="assets/js/vendor/datatables.min.js"></script>
+  <script src="assets/js/vendor/jquery.passwordRequirements.min.js"></script>
 
   <script src="assets/js/vendor/modernizr-css-media-queries.js"></script>
   <script src="assets/js/main.js"></script>

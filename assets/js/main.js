@@ -1,5 +1,5 @@
 // GLOBALS
-var editor; // use a global for the submit and return data rendering in the examples
+var editor; // global for datatables editor
 
 // READY
 jQuery(document).on( "ready", function() {
@@ -139,10 +139,10 @@ function formBasicValidation() {
           password: true
         },
         new_password: {
-          password: true
+          // password: true
         },
         confirm_password: {
-          password: true,
+          // password: true,
           equalTo : '#new_password'
         },
 
@@ -210,6 +210,17 @@ function formBasicValidation() {
     }
     return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val())); 
   }, 'Cannot be earlier than start date.');
+
+
+
+  // Password Requirements
+  $(".pr-password").passwordRequirements({
+    numCharacters: 8,
+    useLowercase: true,
+    useUppercase: true,
+    useNumbers: true,
+    useSpecial: true,
+  });
 }
 
 function dataTableMethods() {
