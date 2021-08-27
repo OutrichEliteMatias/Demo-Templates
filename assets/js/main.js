@@ -11,8 +11,9 @@ jQuery(window).on( "load", function() {
   // mobileMenuEnable();
   adjustTopOffset();
   
-  mobileMenuToggle();
-  mobileMenuAccordion();
+  // mobileMenuToggle();
+  mobileMenuToggleAlt();
+  // mobileMenuAccordion();
   
   passwordToggle();
   passwordMatch();
@@ -43,6 +44,10 @@ function adjustTopOffset() {
 	jQuery('.mobile-menu').css({
 		'top': headerHeight,
 	});
+  
+  jQuery('.mobile-menu-alt').css({
+		'top': headerHeight,
+	});
 
   jQuery('main').css({
 		'margin-top': headerHeight,
@@ -69,6 +74,19 @@ function mobileMenuToggle() {
     e.preventDefault();
     jQuery( this ).toggleClass('is-active');
     menu.toggleClass('active');		
+  });
+}
+
+function mobileMenuToggleAlt() {
+  var MobileMenu = new MobileNav({
+    initElem: "nav",
+    menuTitle: "",
+  });
+  
+  jQuery('[data=mobile-menu-trigger]').on('click', function(e) {
+    e.preventDefault();
+    jQuery( this ).toggleClass('is-active');
+    jQuery('.nav-wrapper').toggleClass('show-menu');
   });
 }
 
