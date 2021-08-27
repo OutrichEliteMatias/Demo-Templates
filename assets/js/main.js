@@ -294,8 +294,11 @@ function dataTableMethods() {
   } );
   
   table.DataTable( {
-      dom: "Bfrtip",
-      columns: [
+      dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
+      pageLength: 10,
+      lengthMenu: [[1, 5, 10, 25, 50, -1], [1, 5, 10, 25, 50, "All"]],
+      responsive: true,
+      columns   : [
           { data: "name" },
           { data: "product" },
           { data: "serial_number" },
@@ -314,64 +317,50 @@ function dataTableMethods() {
             orderable     : false
           }
       ],
-      select: true,
+      select : true,
       buttons: [
-          { 
-            extend   : "create",
-            text     : "Add New",
-            className: 'btn btn-grey-lighter',
-            editor   : editor
-          },
-          // { extend: "edit",   editor: editor },
-          // { extend: "remove", editor: editor },
-          { 
-            extend   : "csv",
-            text     : "<i class='fas fa-file-csv'></i>",
-            className: 'btn btn-grey-lighter',
-          },
-          {
-            extend   : "excel",
-            text     : "<i class='fas fa-file-excel'></i>",
-            className: 'btn btn-grey-lighter',
-          },
-          {
-            extend   : "pdf",
-            text     : "<i class='fas fa-file-pdf'></i>",
-            className: 'btn btn-grey-lighter',
-          },
-          {
-            extend   : "print",
-            text     : "<i class='fas fa-print'></i>",
-            className: 'btn btn-grey-lighter',
-          },
+        { 
+          extend   : "create",
+          text     : "Add New",
+          className: 'btn btn-grey-lighter',
+          editor   : editor
+        },
+        // { extend: "edit",   editor: editor },
+        // { extend: "remove", editor: editor },
+        { 
+          extend   : "csv",
+          text     : "<i class='fas fa-file-csv'></i>",
+          className: 'btn btn-grey-lighter',
+        },
+        {
+          extend   : "excel",
+          text     : "<i class='fas fa-file-excel'></i>",
+          className: 'btn btn-grey-lighter',
+        },
+        {
+          extend   : "pdf",
+          text     : "<i class='fas fa-file-pdf'></i>",
+          className: 'btn btn-grey-lighter',
+        },
+        {
+          extend   : "print",
+          text     : "<i class='fas fa-print'></i>",
+          className: 'btn btn-grey-lighter',
+        },
       ]
   } );
 
   // INITIAL VALUES
-  table.DataTable().row.add( {
-    "DT_RowId"     : "row_initial_1",
-    "name"         : "John Doe",
-    "product"      : "Product 1",
-    "serial_number": "ABCD-1234-EFGH-5678",
-    "date"         : "2021-08-24",
-    "details"      : "Lorem ipsum...",
-  } ).draw();
-  table.DataTable().row.add( {
-    "DT_RowId"     : "row_initial_2",
-    "name"         : "John Doe",
-    "product"      : "Product 2",
-    "serial_number": "ABCD-1234-EFGH-5678",
-    "date"         : "2021-08-24",
-    "details"      : "Lorem ipsum...",
-  } ).draw();
-  table.DataTable().row.add( {
-    "DT_RowId"     : "row_initial_3",
-    "name"         : "John Doe",
-    "product"      : "Product 3",
-    "serial_number": "ABCD-1234-EFGH-5678",
-    "date"         : "2021-08-24",
-    "details"      : "Lorem ipsum...",
-  } ).draw();
+  for (let index = 0; index < 15; index++) {
+    table.DataTable().row.add( {
+      "DT_RowId"     : "row_initial_" + (index + 1),
+      "name"         : "John Doe",
+      "product"      : "Product " + (index + 1),
+      "serial_number": "ABCD-1234-EFGH-5678",
+      "date"         : "2021-08-24",
+      "details"      : "Lorem ipsum...",
+    } ).draw();
+  }
 }
 
 function chartMethods() {
