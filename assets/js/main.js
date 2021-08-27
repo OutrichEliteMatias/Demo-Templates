@@ -30,6 +30,7 @@ jQuery(window).on( "load", function() {
 
   customInputDropdown();
   customDatepicker();
+  customFileUpload();
 });
 
 // RESIZE
@@ -582,3 +583,29 @@ function customDatepicker() {
     }
   });
 }
+
+function customFileUpload() {
+  $("#fileupload").fileupload({
+    dataType         : "json",
+    singleFileUploads: true,
+    add: function(e, data) {
+      data.context = $('<p class="file">');
+      data.context.append($('<a target="_blank">').text(data.files[0].name))
+      data.context.appendTo('.form-field.file-upload .input-container');
+      data.submit();
+    },
+    progress: function(e, data) {
+      var progress = parseInt((data.loaded / data.total) * 100, 10);
+      data.context.css("background-position-x", 100 - progress + "%")
+    },
+    done: function(e, data) {
+      data.context
+        .addClass("done")
+        .find("a")
+        .prop("href", data.result.files[0].url);
+  
+        jQuery('.form-field.file-upload .profile-pic').css("background-image", "url('" + data.result.files[0].url + "')");
+    }
+  });
+}
+

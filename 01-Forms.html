@@ -257,7 +257,7 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <form action="">
+              <form action="//">
                 <div class="row">
                   <div class="col-12"><h4>Form Field Type Limit</h4></div>
                   <div class="col-12 col-md-6 col-lg-4">
@@ -457,6 +457,26 @@
                   </div>
                 </div>
 
+                <div class="row">
+                  <div class="col-12"><h4>File Upload</h4></div>
+                  <div class="col-12 col-lg-6">
+                    <div class="form-field file-upload">
+                      <label for="">Upload Profile Image</label>
+                      <div class="profile-pic">
+                        <label for="fileupload"><i class="fal fa-pen"></i></label>
+                      </div>
+                      <div class="input-container">
+                        <input id="fileupload" type="file" name="files[]" data-url="https://jquery-file-upload.appspot.com/">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6">
+                    <div class="form-field">
+
+                    </div>
+                  </div>
+                </div>
+
                 <div class="form-field">
                   <input type="submit" value="Submit">
                 </div>
@@ -605,6 +625,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://unpkg.com/@jarstone/dselect/dist/js/dselect.js"></script>
+  <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
   <script src="assets/js/vendor/datatables.min.js"></script>
   <script src="assets/js/vendor/jquery.passwordRequirements.min.js"></script>
