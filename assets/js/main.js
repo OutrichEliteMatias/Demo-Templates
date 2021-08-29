@@ -39,8 +39,11 @@ jQuery(window).on( "resize", function() {
   adjustTopOffset();
 });
 
-// PREVENT DEFAULT DRAG AND DROP
+// PREVENT DEFAULT BEHAVIOR
 $(document).on('drop dragover', function (e) {
+  e.preventDefault();
+});
+$('.form-field.file-upload.multiple .btn').on('click', function (e) {
   e.preventDefault();
 });
 
@@ -600,12 +603,7 @@ function customFileUpload() {
     limitMultiFileUploads   : 1,
     limitMultiFileUploadSize: 3000,
     acceptFileTypes         : /(\.|\/)(gif|jpe?g|png)$/i,
-    dropZone: function(e, data) {
-      var field          = jQuery(this);
-      var fieldContainer = field.closest('.form-field');
-
-      return null;
-    },
+    dropZone                : null,
     add: function(e, data) {
       data.context = jQuery('<p class="file">');
       data.context.append(jQuery('<a target="_blank">').text(data.files[0].name))
@@ -627,6 +625,73 @@ function customFileUpload() {
   
       jQuery(this).closest('.form-field').children('.profile-pic').css('background-image', 'url("' + data.result.files[0].url + '")');
     }
+  });
+
+  $('#fileupload_multiple').fileupload('option', {
+    dataType                : 'json',
+    singleFileUploads       : false,
+    limitMultiFileUploadSize: 3000,
+    acceptFileTypes         : /(\.|\/)(gif|jpe?g|png)$/i,
+    dropZone: function(e, data) {
+      var field          = jQuery(this);
+      var fieldContainer = field.parent('.input-container').parent('.form-field');
+
+      return fieldContainer;
+    },
+    add: function(e, data) {
+      data.context = jQuery('<p class="file">');
+      data.context.append(jQuery('<span class="button">'))
+      data.context.append(jQuery('<a target="_blank">').text(data.files[0].name))
+      data.context.append(jQuery('<span>').text('File Uploading...'))
+      data.context.appendTo(jQuery(this).parent());
+      data.submit();
+    },
+    progress: function(e, data) {
+      var progress = parseInt((data.loaded / data.total) * 100, 10);
+      data.context.css('background-position-x', 100 - progress + '%');
+      data.context.find('span:not(.button)').text(0 + progress + '%');
+    },
+    done: function(e, data) {
+      data.context.addClass('done');
+      data.context.find('a').prop('href', data.result.files[0].url);
+      data.context.find('span:not(.button)').text('File Uploaded!');
+  
+      jQuery(this).closest('.form-field').children('.profile-pic').css('background-image', 'url("' + data.result.files[0].url + '")');
+
+      customFileUpload_Multiple_ChangeProfilePic();
+    }
+  });
+}
+
+function customFileUpload_Multiple_ChangeProfilePic() {
+  var buttons = jQuery('.form-field.file-upload.multiple .file')
+
+  buttons.each(function () {
+    jQuery(this).find('span.button').on('click', function() {
+      buttons.removeClass('selected');
+      buttons.find('span.button').removeClass('active');
+      jQuery(this).parent().addClass('selected');
+      jQuery(this).addClass('active');
+    });
+  });
+
+  var chooseBtn = jQuery('.form-field.file-upload.multiple .btn.choose');
+  var cancelBtn = jQuery('.form-field.file-upload.multiple .btn.cancel');
+
+  chooseBtn.on('click', function() {
+    var target = jQuery(this).data('target');
+    var url    = jQuery('.form-field.file-upload.multiple .file.selected a').attr('href');
+
+    jQuery(target).css('background-image', 'url("' + url + '")');
+  });
+
+  cancelBtn.on('click', function() {
+    var target = jQuery(this).data('target');
+
+    // NEEDS TO BE CHANGED FOR PLACEHOLDER PATH
+    var url    = 'https://via.placeholder.com/150';
+
+    jQuery(target).css('background-image', 'url("' + url + '")');
   });
 
 

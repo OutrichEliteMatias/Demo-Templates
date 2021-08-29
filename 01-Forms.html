@@ -468,7 +468,7 @@
                 <div class="row">
                   <div class="col-12"><h4>File Upload</h4></div>
                   <div class="col-12 col-lg-6">
-                    <div class="form-field file-upload">
+                    <div class="form-field file-upload w-profile-pic">
                       <label for="">Upload Profile Image</label>
                       <div class="profile-pic" id="profile_pic">
                         <label for="fileupload"><i class="fal fa-pen"></i></label>
@@ -479,10 +479,15 @@
                     </div>
                   </div>
                   <div class="col-12 col-lg-6">
-                    <div class="form-field file-upload">
-                      <label for="fileupload_multiple">Upload Profile Image</label>
+                    <div class="form-field file-upload multiple">
+                      <label for="">Upload Profile Image</label>
                       <div class="input-container">
+                        <label for="fileupload_multiple">Drag files here...</label>
                         <input id="fileupload_multiple" class="fileupload" type="file" name="files[]" data-url="https://jquery-file-upload.appspot.com/" multiple>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-blue choose" data-target="#profile_pic">Choose</button>
+                        <button class="btn btn-grey-lighter cancel" data-target="#profile_pic">Cancel</button>
                       </div>
                     </div>
                   </div>
