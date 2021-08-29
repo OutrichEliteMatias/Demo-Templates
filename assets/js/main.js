@@ -39,6 +39,13 @@ jQuery(window).on( "resize", function() {
   adjustTopOffset();
 });
 
+// PREVENT DEFAULT DRAG AND DROP
+$(document).on('drop dragover', function (e) {
+  e.preventDefault();
+});
+
+
+// FUNCTIONS
 function adjustTopOffset() {
 	var headerHeight = jQuery('header').outerHeight();
 
@@ -585,27 +592,43 @@ function customDatepicker() {
 }
 
 function customFileUpload() {
-  $("#fileupload").fileupload({
-    dataType         : "json",
-    singleFileUploads: true,
+  $('.fileupload').fileupload({});
+
+  $('#fileupload').fileupload('option', {
+    dataType                : 'json',
+    singleFileUploads       : false,
+    limitMultiFileUploads   : 1,
+    limitMultiFileUploadSize: 3000,
+    acceptFileTypes         : /(\.|\/)(gif|jpe?g|png)$/i,
+    dropZone: function(e, data) {
+      var field          = jQuery(this);
+      var fieldContainer = field.closest('.form-field');
+
+      return null;
+    },
     add: function(e, data) {
-      data.context = $('<p class="file">');
-      data.context.append($('<a target="_blank">').text(data.files[0].name))
-      data.context.appendTo('.form-field.file-upload .input-container');
+      data.context = jQuery('<p class="file">');
+      data.context.append(jQuery('<a target="_blank">').text(data.files[0].name))
+      data.context.append(jQuery('<span>').text('File Uploading...'))
+      data.context.appendTo(jQuery(this).parent());
       data.submit();
+
+      console.log(jQuery(this).closest('.form-field'));
     },
     progress: function(e, data) {
       var progress = parseInt((data.loaded / data.total) * 100, 10);
-      data.context.css("background-position-x", 100 - progress + "%")
+      data.context.css('background-position-x', 100 - progress + '%');
+      data.context.find('span').text(0 + progress + '%');
     },
     done: function(e, data) {
-      data.context
-        .addClass("done")
-        .find("a")
-        .prop("href", data.result.files[0].url);
+      data.context.addClass('done');
+      data.context.find('a').prop('href', data.result.files[0].url);
+      data.context.find('span').text('File Uploaded!');
   
-        jQuery('.form-field.file-upload .profile-pic').css("background-image", "url('" + data.result.files[0].url + "')");
+      jQuery(this).closest('.form-field').children('.profile-pic').css('background-image', 'url("' + data.result.files[0].url + '")');
     }
   });
+
+
 }
 
