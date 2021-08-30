@@ -23,6 +23,7 @@ jQuery(window).on( "load", function() {
   formBasicValidation();
   
   dataTableMethods();
+  dataTableMethodsNested();
   
   chartMethods();
 
@@ -254,7 +255,7 @@ function formBasicValidation() {
 }
 
 function dataTableMethods() {
-  var table = jQuery('table.data-table');
+  var table = jQuery('table.data-table#example');
 
   editor = new $.fn.dataTable.Editor( {
     table: table,
@@ -304,6 +305,7 @@ function dataTableMethods() {
       } );
   } );
   
+  // Init
   table.DataTable( {
       dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
       pageLength: 10,
@@ -358,7 +360,8 @@ function dataTableMethods() {
           text     : "<i class='fas fa-print'></i>",
           className: 'btn btn-grey-lighter',
         },
-      ]
+      ],
+      order: [[1, 'asc']]
   } );
 
   // INITIAL VALUES
@@ -372,6 +375,460 @@ function dataTableMethods() {
       "details"      : "Lorem ipsum...",
     } ).draw();
   }
+  
+}
+
+function dataTableMethodsNested() {
+  var table = jQuery('table.data-table#example_nested');
+
+  editor = new $.fn.dataTable.Editor( {
+    table: table,
+    fields: [
+      {
+        label: "Name:",
+        name: "name"
+      },
+      {
+        label: "Product:",
+        name: "product"
+      },
+      {
+        label: "Serial Number:",
+        name: "serial_number"
+      },
+      {
+        label: "Date:",
+        name: "date",
+        type: "datetime"
+      },
+      {
+        label: "Details:",
+        name: "details"
+      }
+    ]
+  } );
+  
+  // Edit record
+  table.on('click', 'td.editor-edit', function (e) {
+    e.preventDefault();
+
+    editor.edit( $(this).closest('tr'), {
+      title: 'Edit record',
+      buttons: 'Update'
+    } );
+  } );
+  
+  // Delete a record
+  table.on('click', 'td.editor-delete', function (e) {
+    e.preventDefault();
+
+    editor.remove( $(this).closest('tr'), {
+      title: 'Delete record',
+      message: 'Are you sure you wish to remove this record?',
+      buttons: 'Delete'
+    } );
+  } );
+
+  /* Formatting function for row details - modify as you need */
+  function format_lvl_2 ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellspacing="0" width="100%" id="example_nested_lvl_2">'+
+      '<thead>'+
+        '<tr>'+
+          '<th></th>'+
+          '<th>Name</th>'+
+          '<th>Product</th>'+
+          '<th>Serial Number</th>'+
+          '<th>Date</th>'+
+          '<th>Details</th>'+
+          '<th></th>'+
+          '<th></th>'+
+        '</tr>'+
+      '</thead>'+
+    '</table>';
+  }
+
+  function format_lvl_3 ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellspacing="0" width="100%" id="example_nested_lvl_3">'+
+      '<thead>'+
+        '<tr>'+
+          '<th>Name</th>'+
+          '<th>Product</th>'+
+          '<th>Serial Number</th>'+
+          '<th>Date</th>'+
+          '<th>Details</th>'+
+          '<th></th>'+
+          '<th></th>'+
+        '</tr>'+
+      '</thead>'+
+    '</table>';
+  }
+  
+  // Init
+  table.DataTable( {
+      dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
+      pageLength: 10,
+      lengthMenu: [[1, 5, 10, 25, 50, -1], [1, 5, 10, 25, 50, "All"]],
+      responsive: true,
+      columns   : [
+          {
+            data          : null,
+            className     : 'details-control',
+            defaultContent: '',
+            orderable     : false,
+          },
+          { data: "name" },
+          { data: "product" },
+          { data: "serial_number" },
+          { data: "date" },
+          { data: "details" },
+          {
+            data          : null,
+            className     : "dt-center editor-edit",
+            defaultContent: '<i class="fal fa-pen"></i>',
+            orderable     : false
+          },
+          {
+            data          : null,
+            className     : "dt-center editor-delete",
+            defaultContent: '<i class="fal fa-trash"></i>',
+            orderable     : false
+          }
+      ],
+      select : true,
+      buttons: [
+        { 
+          extend   : "create",
+          text     : "Add New",
+          className: 'btn btn-grey-lighter',
+          editor   : editor
+        },
+        // { extend: "edit",   editor: editor },
+        // { extend: "remove", editor: editor },
+        { 
+          extend   : "csv",
+          text     : "<i class='fas fa-file-csv'></i>",
+          className: 'btn btn-grey-lighter',
+        },
+        {
+          extend   : "excel",
+          text     : "<i class='fas fa-file-excel'></i>",
+          className: 'btn btn-grey-lighter',
+        },
+        {
+          extend   : "pdf",
+          text     : "<i class='fas fa-file-pdf'></i>",
+          className: 'btn btn-grey-lighter',
+        },
+        {
+          extend   : "print",
+          text     : "<i class='fas fa-print'></i>",
+          className: 'btn btn-grey-lighter',
+        },
+      ],
+      order: [[1, 'asc']]
+  } );
+
+  // INITIAL VALUES - LVL 1
+  for (let index = 0; index < 10; index++) {
+    table.DataTable().row.add( {
+      "DT_RowId"     : "row_initial_" + (index + 1),
+      "name"         : "John Doe 1",
+      "product"      : "Product " + (index + 1),
+      "serial_number": "ABCD-1234-EFGH-5678",
+      "date"         : "2021-08-24",
+      "details"      : "Lorem ipsum...",
+    } ).draw();
+  }
+
+  // Add event listener for opening and closing details
+  // LEVEL 2
+  $('#example_nested tbody').on('click', 'td.details-control', function () {
+    var tr  = $(this).closest('tr');
+    var row = table.DataTable().row( tr );
+
+    if ( row.child.isShown() ) {
+      // This row is already open - close it
+      row.child.hide();
+      tr.removeClass('shown');
+    }
+    else {
+      // Open this row
+      row.child( format_lvl_2(row.data()) ).show();
+
+      var table_lvl_2 = row.child().find('table#example_nested_lvl_2');
+
+      editor = new $.fn.dataTable.Editor( {
+        table: table_lvl_2,
+        fields: [
+          {
+            label: "Name:",
+            name: "name"
+          },
+          {
+            label: "Product:",
+            name: "product"
+          },
+          {
+            label: "Serial Number:",
+            name: "serial_number"
+          },
+          {
+            label: "Date:",
+            name: "date",
+            type: "datetime"
+          },
+          {
+            label: "Details:",
+            name: "details"
+          }
+        ]
+      } );
+
+      // Edit record
+      table_lvl_2.on('click', 'td.editor-edit', function (e) {
+        e.preventDefault();
+
+        editor.edit( $(this).closest('tr'), {
+          title  : 'Edit record',
+          buttons: 'Update'
+        } );
+      } );
+
+      // Delete a record
+      table_lvl_2.on('click', 'td.editor-delete', function (e) {
+        e.preventDefault();
+
+        editor.remove( $(this).closest('tr'), {
+          title  : 'Delete record',
+          message: 'Are you sure you wish to remove this record?',
+          buttons: 'Delete'
+        } );
+      } );
+
+      // Init
+      table_lvl_2.DataTable( {
+        dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
+        pageLength: 5,
+        lengthMenu: [[1, 5, 10, 25, 50, -1], [1, 5, 10, 25, 50, "All"]],
+        responsive: true,
+        columns   : [
+            {
+              data          : null,
+              className     : 'details-control',
+              defaultContent: '',
+              orderable     : false,
+            },
+            { data: "name" },
+            { data: "product" },
+            { data: "serial_number" },
+            { data: "date" },
+            { data: "details" },
+            {
+              data          : null,
+              className     : "dt-center editor-edit",
+              defaultContent: '<i class="fal fa-pen"></i>',
+              orderable     : false
+            },
+            {
+              data          : null,
+              className     : "dt-center editor-delete",
+              defaultContent: '<i class="fal fa-trash"></i>',
+              orderable     : false
+            }
+        ],
+        select : true,
+        buttons: [
+          { 
+            extend   : "create",
+            text     : "Add New",
+            className: 'btn btn-grey-lighter',
+            editor   : editor
+          },
+          // { extend: "edit",   editor: editor },
+          // { extend: "remove", editor: editor },
+          { 
+            extend   : "csv",
+            text     : "<i class='fas fa-file-csv'></i>",
+            className: 'btn btn-grey-lighter',
+          },
+          {
+            extend   : "excel",
+            text     : "<i class='fas fa-file-excel'></i>",
+            className: 'btn btn-grey-lighter',
+          },
+          {
+            extend   : "pdf",
+            text     : "<i class='fas fa-file-pdf'></i>",
+            className: 'btn btn-grey-lighter',
+          },
+          {
+            extend   : "print",
+            text     : "<i class='fas fa-print'></i>",
+            className: 'btn btn-grey-lighter',
+          },
+        ],
+        order: [[1, 'asc']],
+      } );
+
+      // INITIAL VALUES - LVL 2
+      for (let index = 0; index < 10; index++) {
+        table_lvl_2.DataTable().row.add( {
+          "DT_RowId"     : "row_initial_" + (index + 1),
+          "name"         : "John Doe 2",
+          "product"      : "Product " + (index + 1),
+          "serial_number": "ABCD-1234-EFGH-5678",
+          "date"         : "2021-08-24",
+          "details"      : "Lorem ipsum...",
+        } ).draw();
+      }
+      
+      tr.addClass('shown');
+
+
+      // LEVEL 3
+      $('#example_nested_lvl_2 tbody').on('click', 'td.details-control', function () {
+        var tr  = $(this).closest('tr');
+        var row = table_lvl_2.DataTable().row( tr );
+
+        if ( row.child.isShown() ) {
+          // This row is already open - close it
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open this row
+          row.child( format_lvl_3(row.data()) ).show();
+
+          var table_lvl_3 = row.child().find('table#example_nested_lvl_3');
+
+          editor = new $.fn.dataTable.Editor( {
+            table: table_lvl_3,
+            fields: [
+              {
+                label: "Name:",
+                name: "name"
+              },
+              {
+                label: "Product:",
+                name: "product"
+              },
+              {
+                label: "Serial Number:",
+                name: "serial_number"
+              },
+              {
+                label: "Date:",
+                name: "date",
+                type: "datetime"
+              },
+              {
+                label: "Details:",
+                name: "details"
+              }
+            ]
+          } );
+
+          // Edit record
+          table_lvl_3.on('click', 'td.editor-edit', function (e) {
+            e.preventDefault();
+
+            editor.edit( $(this).closest('tr'), {
+              title  : 'Edit record',
+              buttons: 'Update'
+            } );
+          } );
+
+          // Delete a record
+          table_lvl_3.on('click', 'td.editor-delete', function (e) {
+            e.preventDefault();
+
+            editor.remove( $(this).closest('tr'), {
+              title  : 'Delete record',
+              message: 'Are you sure you wish to remove this record?',
+              buttons: 'Delete'
+            } );
+          } );
+
+          // Init
+          table_lvl_3.DataTable( {
+            dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
+            pageLength: 5,
+            lengthMenu: [[1, 5, 10, 25, 50, -1], [1, 5, 10, 25, 50, "All"]],
+            responsive: true,
+            columns   : [
+                { data: "name" },
+                { data: "product" },
+                { data: "serial_number" },
+                { data: "date" },
+                { data: "details" },
+                {
+                  data          : null,
+                  className     : "dt-center editor-edit",
+                  defaultContent: '<i class="fal fa-pen"></i>',
+                  orderable     : false
+                },
+                {
+                  data          : null,
+                  className     : "dt-center editor-delete",
+                  defaultContent: '<i class="fal fa-trash"></i>',
+                  orderable     : false
+                }
+            ],
+            select : true,
+            buttons: [
+              { 
+                extend   : "create",
+                text     : "Add New",
+                className: 'btn btn-grey-lighter',
+                editor   : editor
+              },
+              // { extend: "edit",   editor: editor },
+              // { extend: "remove", editor: editor },
+              { 
+                extend   : "csv",
+                text     : "<i class='fas fa-file-csv'></i>",
+                className: 'btn btn-grey-lighter',
+              },
+              {
+                extend   : "excel",
+                text     : "<i class='fas fa-file-excel'></i>",
+                className: 'btn btn-grey-lighter',
+              },
+              {
+                extend   : "pdf",
+                text     : "<i class='fas fa-file-pdf'></i>",
+                className: 'btn btn-grey-lighter',
+              },
+              {
+                extend   : "print",
+                text     : "<i class='fas fa-print'></i>",
+                className: 'btn btn-grey-lighter',
+              },
+            ],
+            order: [[1, 'asc']],
+          } );
+
+          // INITIAL VALUES - LVL 2
+          for (let index = 0; index < 10; index++) {
+            table_lvl_3.DataTable().row.add( {
+              "DT_RowId"     : "row_initial_" + (index + 1),
+              "name"         : "John Doe 3",
+              "product"      : "Product " + (index + 1),
+              "serial_number": "ABCD-1234-EFGH-5678",
+              "date"         : "2021-08-24",
+              "details"      : "Lorem ipsum...",
+            } ).draw();
+          }
+          
+          tr.addClass('shown');
+        }
+
+      });
+
+    }
+  } );
+  
 }
 
 function chartMethods() {
