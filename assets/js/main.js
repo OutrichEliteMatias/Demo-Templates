@@ -1,6 +1,8 @@
 // GLOBALS
 var editor; // global for datatables editor
 
+sliderMethods();
+
 // READY
 jQuery(document).on( "ready", function() {
   adjustTopOffset();
@@ -44,7 +46,7 @@ jQuery(window).on( "resize", function() {
 $(document).on('drop dragover', function (e) {
   e.preventDefault();
 });
-$('.form-field.file-upload.multiple .btn').on('click', function (e) {
+$('.form-field.file-upload.multiple button.btn').on('click', function (e) {
   e.preventDefault();
 });
 
@@ -1062,13 +1064,14 @@ function customFileUpload() {
     acceptFileTypes         : /(\.|\/)(gif|jpe?g|png)$/i,
     dropZone                : null,
     add: function(e, data) {
+      jQuery(this).parent('.input-container').find('.file').remove();
+
       data.context = jQuery('<p class="file">');
       data.context.append(jQuery('<a target="_blank">').text(data.files[0].name))
       data.context.append(jQuery('<span>').text('File Uploading...'))
       data.context.appendTo(jQuery(this).parent());
       data.submit();
 
-      console.log(jQuery(this).closest('.form-field'));
     },
     progress: function(e, data) {
       var progress = parseInt((data.loaded / data.total) * 100, 10);
@@ -1135,22 +1138,125 @@ function customFileUpload_Multiple_ChangeProfilePic() {
   var chooseBtn = jQuery('.form-field.file-upload.multiple .btn.choose');
   var cancelBtn = jQuery('.form-field.file-upload.multiple .btn.cancel');
 
-  chooseBtn.on('click', function() {
-    var target = jQuery(this).data('target');
-    var url    = jQuery('.form-field.file-upload.multiple .file.selected a').attr('href');
+  // chooseBtn.on('click', function() {
+  //   var target = jQuery(this).data('target');
+  //   var url    = jQuery('.form-field.file-upload.multiple .file.selected a').attr('href');
 
-    jQuery(target).css('background-image', 'url("' + url + '")');
-  });
+  //   jQuery(target).css('background-image', 'url("' + url + '")');
+  // });
 
   cancelBtn.on('click', function() {
-    var target = jQuery(this).data('target');
+    var target = jQuery('.form-field.file-upload.multiple .file.selected');
 
     // NEEDS TO BE CHANGED FOR PLACEHOLDER PATH
-    var url    = 'https://via.placeholder.com/150';
+    var url = 'https://via.placeholder.com/150';
 
-    jQuery(target).css('background-image', 'url("' + url + '")');
+    // jQuery(target).css('background-image', 'url("' + url + '")');
+    target.remove();
   });
 
 
 }
 
+function sliderMethods() {
+  var sliders = jQuery('.slider');
+  if ( sliders.length > 0 ) {
+    jQuery.each( sliders, function ( index, value ) {
+      var sliderItems       = jQuery(this).data( 'items' ),
+          sliderAutoPlay    = jQuery(this).data( 'autoplay' ),
+          sliderLoop        = jQuery(this).data( 'loop' ),
+          sliderSpeed       = jQuery(this).data( 'slide-speed' ) ? jQuery(this).data( 'slide-speed' ) : "300",                        // slide change transition speed
+          sliderTransition  = jQuery(this).data( 'time-before-slide' ) ? jQuery(this).data( 'time-before-slide' ) + "000" : "8000",   // autoplay slide change transition speed
+          slideCount        = jQuery(this).data( 'slide-count' ) ? jQuery(this).data( 'slide-count' ) : 'page',                       // number of slides to show in one click
+          centerSlides      = jQuery(this).data( 'center-slides' ),                                                                   // center the slides
+          controls          = jQuery(this).data( 'controls' ),                                                                        // enable next prev buttons
+          sliderNav         = jQuery(this).data( 'slider-nav' ),                                                                      // enable slider nav dots
+          mouseDrag         = jQuery(this).data( 'mousedrag' ),                                                                       // enable mouse drag
+          edgePadding       = jQuery(this).data( 'edge-padding' ),                                                                    // outside space -- panghatak sa elements
+          autoWidth         = jQuery(this).data( 'auto-width' ),                                                                      // auto width items
+          startIndex        = jQuery(this).data( 'start-index' ),                                                                     // slider start
+          responsiveOptions = jQuery(this).data( 'responsive-options' );
+
+      var slider = tns( {
+        container           : value,
+        items               : sliderItems,
+        autoplay            : sliderAutoPlay,
+        startIndex          : startIndex,         // slider start
+        loop                : sliderLoop,
+        speed               : sliderSpeed,        // slide change transition speed
+        mouseDrag           : mouseDrag,          // enable mouse drag
+        center              : centerSlides,       // center the slides
+        edgePadding         : edgePadding,        // outside space -- panghatak sa elements
+        autoWidth           : autoWidth,          // auto width items
+        slideBy             : slideCount,         // number of slides to show in one click
+        controls            : controls,           // enable next prev buttons
+        controlsText        : ['<i class="far fa-chevron-left"></i>', '<i class="far fa-chevron-right"></i>'],
+        controlsPosition    : 'bottom',           // position of the prev next buttons
+        nav                 : sliderNav,          // enable slider nav dots
+        navPosition         : 'bottom',           // position of the nav dots
+        autoplayPosition    : 'bottom',           // autoplay button position
+        autoplayButtonOutput: false,              // hide autoplay button
+        autoplayTimeout     : sliderTransition,   // autoplay slide change transition speed
+        responsive          : responsiveOptions   // responsive options declared
+      } );
+    } )
+  }
+
+
+  var sliderAlt = jQuery('.slider-alt');
+  if ( sliders.length > 0 ) {
+    jQuery.each( sliderAlt, function ( index, value ) {
+      var sliderItems       = jQuery(this).data( 'items' ),
+          sliderAutoPlay    = jQuery(this).data( 'autoplay' ),
+          sliderLoop        = jQuery(this).data( 'loop' ),
+          sliderSpeed       = jQuery(this).data( 'slide-speed' ) ? jQuery(this).data( 'slide-speed' ) : "300",                        // slide change transition speed
+          sliderTransition  = jQuery(this).data( 'time-before-slide' ) ? jQuery(this).data( 'time-before-slide' ) + "000" : "8000",   // autoplay slide change transition speed
+          slideCount        = jQuery(this).data( 'slide-count' ) ? jQuery(this).data( 'slide-count' ) : 'page',                       // number of slides to show in one click
+          centerSlides      = jQuery(this).data( 'center-slides' ),                                                                   // center the slides
+          controls          = jQuery(this).data( 'controls' ),                                                                        // enable next prev buttons
+          sliderNav         = jQuery(this).data( 'slider-nav' ),                                                                      // enable slider nav dots
+          mouseDrag         = jQuery(this).data( 'mousedrag' ),                                                                       // enable mouse drag
+          edgePadding       = jQuery(this).data( 'edge-padding' ),                                                                    // outside space -- panghatak sa elements
+          autoWidth         = jQuery(this).data( 'auto-width' ),                                                                      // auto width items
+          startIndex        = jQuery(this).data( 'start-index' ),                                                                     // slider start
+          responsiveOptions = jQuery(this).data( 'responsive-options' );
+    
+      var slider = tns( {
+        container           : value,
+        items               : sliderItems,
+        autoplay            : sliderAutoPlay,
+        startIndex          : startIndex,         // slider start
+        loop                : sliderLoop,
+        speed               : sliderSpeed,        // slide change transition speed
+        mouseDrag           : mouseDrag,          // enable mouse drag
+        center              : centerSlides,       // center the slides
+        edgePadding         : edgePadding,        // outside space -- panghatak sa elements
+        autoWidth           : autoWidth,          // auto width items
+        slideBy             : slideCount,         // number of slides to show in one click
+        controls            : controls,           // enable next prev buttons
+        controlsText        : ['<i class="far fa-chevron-left"></i>', '<i class="far fa-chevron-right"></i>'],
+        controlsPosition    : 'bottom',           // position of the prev next buttons
+        nav                 : sliderNav,          // enable slider nav dots
+        navPosition         : 'bottom',           // position of the nav dots
+        autoplayPosition    : 'bottom',           // autoplay button position
+        autoplayButtonOutput: false,              // hide autoplay button
+        autoplayTimeout     : sliderTransition,   // autoplay slide change transition speed
+        responsive          : {                  // responsive options declared
+          480 : {
+            'items': 2,
+          },
+          768 : {
+            'items': 3,
+          },
+          992 : {
+            'items': 4,
+          },
+        }
+      } );
+    });
+  }
+
+  jQuery('.heart').on('click', function() {
+    jQuery(this).toggleClass('active');
+  });
+}
