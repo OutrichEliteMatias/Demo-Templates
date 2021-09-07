@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="assets/css/vendor/hamburgers/hamburgers.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
-    <title>Demo Templates - Forms</title>
+    <title>Demo Templates - Tables</title>
   </head>
 
   <body>
@@ -264,242 +264,25 @@
 
 
     <main>
-      <div class="forms">
+      <div class="tables">
         <div class="container">
           <div class="row">
             <div class="col">
-              <form action="//">
-                <div class="row">
-                  <div class="col-12"><h4>Form Field Type Limit</h4></div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="alphabet">Alphabets Only</label>
-                      <div class="input-container">
-                        <input type="text" name="alphabet" id="alphabet">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="numbers">Numbers Only</label>
-                      <div class="input-container">
-                        <input type="number" name="numbers" id="numbers">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="alphabet_numbers">Alphabet and Numbers Only</label>
-                      <div class="input-container">
-                        <input type="text" name="alphabet_numbers" id="alphabet_numbers">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="alphabet_special_chars">Alphabet and Special Characters Only</label>
-                      <div class="input-container">
-                        <input type="text" name="alphabet_special_chars" id="alphabet_special_chars">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="numbers_special_chars">Numbers and Special Characters Only</label>
-                      <div class="input-container">
-                        <input type="text" name="numbers_special_chars" id="numbers_special_chars">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12"><h4>Form Password Fields</h4></div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="password">Current Password</label>
-                      <div class="input-container">
-                        <input type="password" name="password" id="password">
-                        <div class="toggle-password"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="new_password">New Password</label>
-                      <div class="input-container">
-                        <input type="password" name="new_password" id="new_password" class="pr-password">
-                        <div class="toggle-password"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="confirm_password">Confirm Password</label>
-                      <div class="input-container">
-                        <input type="password" name="confirm_password" id="confirm_password">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12"><h4>Select Option Dropdown Field</h4></div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="select_creatable">Custom Input Option in Select Dropdown</label>
-                      <div class="input-container">
-                        <select name="select_creatable" class="form-select" id="select_creatable">
-                          <option value="">Select Option</option>
-                          <option value="option-1">Option 1</option>
-                          <option value="option-2">Option 2</option>
-                          <option value="option-3">Option 3</option>
-                          <option value="option-4">Option 4</option>
-                          <option value="option-5">Option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="select_multiple">Select Multiple Option</label>
-                      <div class="input-container">
-                        <select name="select_multiple" class="selectpicker" id="select_multiple" multiple>
-                          <option value="option-1">Option 1</option>
-                          <option value="option-2">Option 2</option>
-                          <option value="option-3">Option 3</option>
-                          <option value="option-4">Option 4</option>
-                          <option value="option-5">Option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="select_multiple_w_limit">Select Options (With Limit)</label>
-                      <div class="input-container">
-                        <select name="select_multiple_w_limit" class="selectpicker" id="select_multiple_w_limit" data-max-options="2" multiple>
-                          <option value="option-1">Option 1</option>
-                          <option value="option-2">Option 2</option>
-                          <option value="option-3">Option 3</option>
-                          <option value="option-4">Option 4</option>
-                          <option value="option-5">Option 5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-3">
-                    <h4>Checkbox Fields</h4>
-                    <div class="form-field">
-                      <div class="input-container checkbox-wrapper">
-                        <input type="checkbox" id="checkbox_option_1" name="checkbox_option_1" value="checkbox_option_1">
-                        <label for="checkbox_option_1">Option 1</label>
-                      </div>
-                      <div class="input-container checkbox-wrapper">
-                        <input type="checkbox" id="checkbox_option_2" name="checkbox_option_2" value="checkbox_option_2">
-                        <label for="checkbox_option_2">Option 2</label>
-                      </div>
-                      <div class="input-container checkbox-wrapper">
-                        <input type="checkbox" id="checkbox_option_3" name="checkbox_option_3" value="checkbox_option_3">
-                        <label for="checkbox_option_3">Option 3</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-3">
-                    <h4>Radio Fields</h4>
-                    <div class="form-field">
-                      <div class="input-container radio-wrapper">
-                        <input type="radio" id="radio_option_1" name="radio_option" value="radio_option_1">
-                        <label for="radio_option_1">Option 1</label>
-                      </div>
-                      <div class="input-container radio-wrapper">
-                        <input type="radio" id="radio_option_2" name="radio_option" value="radio_option_2">
-                        <label for="radio_option_2">Option 2</label>
-                      </div>
-                      <div class="input-container radio-wrapper">
-                        <input type="radio" id="radio_option_3" name="radio_option" value="radio_option_3">
-                        <label for="radio_option_3">Option 3</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-12 col-md-6 col-lg-6">
-                    <h4>Select Date (Date changes according to month)</h4>
-                    <div class="form-field custom-datepicker">
-                      <div class="input-container date">
-                        <label for="custom_datepicker_date">Date</label>
-                        <select name="custom_datepicker_date" class="" id="custom_datepicker_date">
-                          <option value="">Select Date</option>
-                        </select>
-                      </div>
-                      <div class="input-container month">
-                        <label for="custom_datepicker_month">Month</label>
-                        <select name="custom_datepicker_month" class="" id="custom_datepicker_month">
-                          <option value="">Select Month</option>
-                        </select>
-                      </div>
-                      <div class="input-container year">
-                        <label for="custom_datepicker_year">Year</label>
-                        <select name="custom_datepicker_year" class="" id="custom_datepicker_year">
-                          <option value="">Select Year</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12"><h4>Calendar</h4></div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="start_date">Start Date</label>
-                      <div class="input-container">
-                        <input type="date" class="datepicker" id="start_date" name="start_date" placeholder="">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-lg-4">
-                    <div class="form-field">
-                      <label for="end_date">End Date</label>
-                      <div class="input-container">
-                        <input type="date" class="datepicker" id="end_date" name="end_date" placeholder="">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-12"><h4>File Upload</h4></div>
-                  <div class="col-12 col-lg-6">
-                    <div class="form-field file-upload w-profile-pic">
-                      <label for="">Upload Profile Image</label>
-                      <div class="profile-pic" id="profile_pic">
-                        <label for="fileupload"><i class="fal fa-pen"></i></label>
-                      </div>
-                      <div class="input-container">
-                        <input id="fileupload" class="fileupload" type="file" name="files[]" data-url="https://jquery-file-upload.appspot.com/">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-lg-6">
-                    <div class="form-field file-upload multiple">
-                      <label for="">Upload Profile Image</label>
-                      <div class="input-container">
-                        <label for="fileupload_multiple">Drag files here...</label>
-                        <input id="fileupload_multiple" class="fileupload" type="file" name="files[]" data-url="https://jquery-file-upload.appspot.com/" multiple>
-                      </div>
-                      <div class="btn-group">
-                        <label for="fileupload_multiple" class="btn btn-blue choose" data-target="#profile_pic">Choose</label>
-                        <button class="btn btn-grey-lighter cancel" data-target="#profile_pic">Cancel</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-field">
-                  <input type="submit" value="Submit">
-                </div>
-              </form>
+              <h4>Datatable - Nested</h4>
+              <table class="data-table" id="example_nested" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Product</th>
+                    <th>Serial Number</th>
+                    <th>Date</th>
+                    <th>Details</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </table>
             </div>
           </div>
         </div>
@@ -605,18 +388,7 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    passwordToggle();
-    passwordMatch();
-    
-    datepickerToggle();
-    
-    formBasicValidation();
-
-    toastrDefaults();
-
-    customInputDropdown();
-    customDatepicker();
-    customFileUpload();
+    dataTableMethodsNested();
   </script>
 
 </html>

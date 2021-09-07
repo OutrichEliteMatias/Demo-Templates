@@ -1,7 +1,7 @@
 // GLOBALS
 var editor; // global for datatables editor
 
-sliderMethods();
+// sliderMethods();
 
 // READY
 jQuery(document).on( "ready", function() {
@@ -17,23 +17,23 @@ jQuery(window).on( "load", function() {
   mobileMenuToggleAlt();
   // mobileMenuAccordion();
   
-  passwordToggle();
-  passwordMatch();
+  // passwordToggle();
+  // passwordMatch();
   
-  datepickerToggle();
+  // datepickerToggle();
   
-  formBasicValidation();
+  // formBasicValidation();
   
-  dataTableMethods();
-  dataTableMethodsNested();
+  // dataTableMethods();
+  // dataTableMethodsNested();
   
-  chartMethods();
+  // chartMethods();
 
-  toastrDefaults();
+  // toastrDefaults();
 
-  customInputDropdown();
-  customDatepicker();
-  customFileUpload();
+  // customInputDropdown();
+  // customDatepicker();
+  // customFileUpload();
 });
 
 // RESIZE
@@ -432,9 +432,9 @@ function dataTableMethodsNested() {
   } );
 
   /* Formatting function for row details - modify as you need */
-  function format_lvl_2 ( d ) {
+  function format_lvl_2 () {
     // `d` is the original data object for the row
-    return '<table cellspacing="0" width="100%" id="example_nested_lvl_2">'+
+    return '<table class="data-table" cellspacing="0" width="100%" id="example_nested_lvl_2">'+
       '<thead>'+
         '<tr>'+
           '<th></th>'+
@@ -450,7 +450,7 @@ function dataTableMethodsNested() {
     '</table>';
   }
 
-  function format_lvl_3 ( d ) {
+  function format_lvl_3 () {
     // `d` is the original data object for the row
     return '<table cellspacing="0" width="100%" id="example_nested_lvl_3">'+
       '<thead>'+
@@ -557,11 +557,11 @@ function dataTableMethodsNested() {
     }
     else {
       // Open this row
-      row.child( format_lvl_2(row.data()) ).show();
+      row.child( format_lvl_2() ).show();
 
-      var table_lvl_2 = row.child().find('table#example_nested_lvl_2');
+      var table_lvl_2 = row.child().find('table.data-table#example_nested_lvl_2');
 
-      editor = new $.fn.dataTable.Editor( {
+      editor2 = new $.fn.dataTable.Editor( {
         table: table_lvl_2,
         fields: [
           {
@@ -589,20 +589,20 @@ function dataTableMethodsNested() {
       } );
 
       // Edit record
-      table_lvl_2.on('click', 'td.editor-edit', function (e) {
+      table_lvl_2.on('click', 'td.editor-edit-2', function (e) {
         e.preventDefault();
 
-        editor.edit( $(this).closest('tr'), {
+        editor2.edit( $(this).closest('tr'), {
           title  : 'Edit record',
           buttons: 'Update'
         } );
       } );
 
       // Delete a record
-      table_lvl_2.on('click', 'td.editor-delete', function (e) {
+      table_lvl_2.on('click', 'td.editor-delete-2', function (e) {
         e.preventDefault();
 
-        editor.remove( $(this).closest('tr'), {
+        editor2.remove( $(this).closest('tr'), {
           title  : 'Delete record',
           message: 'Are you sure you wish to remove this record?',
           buttons: 'Delete'
@@ -618,7 +618,7 @@ function dataTableMethodsNested() {
         columns   : [
             {
               data          : null,
-              className     : 'details-control',
+              className     : 'detailz-control',
               defaultContent: '',
               orderable     : false,
             },
@@ -629,13 +629,13 @@ function dataTableMethodsNested() {
             { data: "details" },
             {
               data          : null,
-              className     : "dt-center editor-edit",
+              className     : "dt-center editor-edit-2",
               defaultContent: '<i class="fal fa-pen"></i>',
               orderable     : false
             },
             {
               data          : null,
-              className     : "dt-center editor-delete",
+              className     : "dt-center editor-delete-2",
               defaultContent: '<i class="fal fa-trash"></i>',
               orderable     : false
             }
@@ -646,7 +646,7 @@ function dataTableMethodsNested() {
             extend   : "create",
             text     : "Add New",
             className: 'btn btn-grey-lighter',
-            editor   : editor
+            editor   : editor2
           },
           // { extend: "edit",   editor: editor },
           // { extend: "remove", editor: editor },
@@ -677,8 +677,8 @@ function dataTableMethodsNested() {
       // INITIAL VALUES - LVL 2
       for (let index = 0; index < 10; index++) {
         table_lvl_2.DataTable().row.add( {
-          "DT_RowId"     : "row_initial_" + (index + 1),
-          "name"         : "John Doe 2",
+          "DT_RowId"     : "row_initial_2_" + (index + 1),
+          "name"         : "Jane Doe 2",
           "product"      : "Product " + (index + 1),
           "serial_number": "ABCD-1234-EFGH-5678",
           "date"         : "2021-08-24",
@@ -688,9 +688,8 @@ function dataTableMethodsNested() {
       
       tr.addClass('shown');
 
-
       // LEVEL 3
-      $('#example_nested_lvl_2 tbody').on('click', 'td.details-control', function () {
+      $('#example_nested_lvl_2 tbody').on('click', 'td.detailz-control', function () {
         var tr  = $(this).closest('tr');
         var row = table_lvl_2.DataTable().row( tr );
 
@@ -700,11 +699,11 @@ function dataTableMethodsNested() {
           tr.removeClass('shown');
         } else {
           // Open this row
-          row.child( format_lvl_3(row.data()) ).show();
+          row.child( format_lvl_3() ).show();
 
           var table_lvl_3 = row.child().find('table#example_nested_lvl_3');
 
-          editor = new $.fn.dataTable.Editor( {
+          editor3 = new $.fn.dataTable.Editor( {
             table: table_lvl_3,
             fields: [
               {
@@ -732,20 +731,20 @@ function dataTableMethodsNested() {
           } );
 
           // Edit record
-          table_lvl_3.on('click', 'td.editor-edit', function (e) {
+          table_lvl_3.on('click', 'td.editor-edit-3', function (e) {
             e.preventDefault();
 
-            editor.edit( $(this).closest('tr'), {
+            editor3.edit( $(this).closest('tr'), {
               title  : 'Edit record',
               buttons: 'Update'
             } );
           } );
 
           // Delete a record
-          table_lvl_3.on('click', 'td.editor-delete', function (e) {
+          table_lvl_3.on('click', 'td.editor-delete-3', function (e) {
             e.preventDefault();
 
-            editor.remove( $(this).closest('tr'), {
+            editor3.remove( $(this).closest('tr'), {
               title  : 'Delete record',
               message: 'Are you sure you wish to remove this record?',
               buttons: 'Delete'
@@ -766,13 +765,13 @@ function dataTableMethodsNested() {
                 { data: "details" },
                 {
                   data          : null,
-                  className     : "dt-center editor-edit",
+                  className     : "dt-center editor-edit-3",
                   defaultContent: '<i class="fal fa-pen"></i>',
                   orderable     : false
                 },
                 {
                   data          : null,
-                  className     : "dt-center editor-delete",
+                  className     : "dt-center editor-delete-3",
                   defaultContent: '<i class="fal fa-trash"></i>',
                   orderable     : false
                 }
@@ -783,7 +782,7 @@ function dataTableMethodsNested() {
                 extend   : "create",
                 text     : "Add New",
                 className: 'btn btn-grey-lighter',
-                editor   : editor
+                editor   : editor3
               },
               // { extend: "edit",   editor: editor },
               // { extend: "remove", editor: editor },
@@ -811,11 +810,11 @@ function dataTableMethodsNested() {
             order: [[1, 'asc']],
           } );
 
-          // INITIAL VALUES - LVL 2
+          // INITIAL VALUES - LVL 3
           for (let index = 0; index < 10; index++) {
             table_lvl_3.DataTable().row.add( {
-              "DT_RowId"     : "row_initial_" + (index + 1),
-              "name"         : "John Doe 3",
+              "DT_RowId"     : "row_initial_3_" + (index + 1),
+              "name"         : "Jack Doe 3",
               "product"      : "Product " + (index + 1),
               "serial_number": "ABCD-1234-EFGH-5678",
               "date"         : "2021-08-24",
@@ -827,7 +826,6 @@ function dataTableMethodsNested() {
         }
 
       });
-
     }
   } );
   
