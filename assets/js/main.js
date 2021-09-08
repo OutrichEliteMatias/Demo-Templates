@@ -312,7 +312,8 @@ function dataTableMethods() {
       dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
       pageLength: 10,
       lengthMenu: [[1, 5, 10, 25, 50, -1], [1, 5, 10, 25, 50, "All"]],
-      responsive: true,
+      responsive: false,
+      scrollX   : true,
       columns   : [
           { data: "name" },
           { data: "product" },
@@ -434,7 +435,7 @@ function dataTableMethodsNested() {
   /* Formatting function for row details - modify as you need */
   function format_lvl_2 () {
     // `d` is the original data object for the row
-    return '<table class="data-table" cellspacing="0" width="100%" id="example_nested_lvl_2">'+
+    return '<table class="data-table nowrap" cellspacing="0" width="100%" id="example_nested_lvl_2">'+
       '<thead>'+
         '<tr>'+
           '<th></th>'+
@@ -452,7 +453,7 @@ function dataTableMethodsNested() {
 
   function format_lvl_3 () {
     // `d` is the original data object for the row
-    return '<table cellspacing="0" width="100%" id="example_nested_lvl_3">'+
+    return '<table class="data-table nowrap" cellspacing="0" width="100%" id="example_nested_lvl_3">'+
       '<thead>'+
         '<tr>'+
           '<th>Name</th>'+
@@ -472,11 +473,12 @@ function dataTableMethodsNested() {
       dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
       pageLength: 10,
       lengthMenu: [[1, 5, 10, 25, 50, -1], [1, 5, 10, 25, 50, "All"]],
-      responsive: true,
+      responsive: false,
+      scrollX   : true,
       columns   : [
           {
             data          : null,
-            className     : 'details-control',
+            className     : 'dtr-control details-control',
             defaultContent: '',
             orderable     : false,
           },
@@ -614,11 +616,12 @@ function dataTableMethodsNested() {
         dom       : "<'buttons'B><'length-menu'l><'search'fr><'table-wrap't><'info'i><'pagination'p>",
         pageLength: 5,
         lengthMenu: [[1, 5, 10, 25, 50, -1], [1, 5, 10, 25, 50, "All"]],
-        responsive: true,
+        responsive: false,
+        scrollX   : true,
         columns   : [
             {
               data          : null,
-              className     : 'detailz-control',
+              className     : 'dtr-control detailz-control',
               defaultContent: '',
               orderable     : false,
             },
